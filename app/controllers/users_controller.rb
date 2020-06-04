@@ -17,4 +17,24 @@ class UsersController < ApplicationController
 
   end
 
+  def insert_user
+    
+    @new_user = User.new
+    @new_user.username = params.fetch( :input_username )
+    @new_user.save
+
+    redirect_to( '/users/' + @new_user.username )
+
+  end
+
+  def delete_user
+
+    @the_user = User.where( :id => params.fetch( :id )).at(0)
+    @deleted_username = @the_user.username
+    @the_user.destroy
+
+    redirect_to('/users/')
+
+  end
+
 end
